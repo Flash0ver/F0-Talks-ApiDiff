@@ -1,0 +1,12 @@
+global using global::System.CodeDom.Compiler;
+global using global::System.Collections.Concurrent;
+global using global::System.Diagnostics;
+global using global::System.Diagnostics.CodeAnalysis;
+global using global::System.Globalization;
+global using global::System.Reflection;
+global using global::System.Runtime.CompilerServices;
+global using global::System.Runtime.Versioning;
+global using global::System.Text.Json;
+global using global::System.Text.Json.Serialization;
+global using global::FluentAssertions;
+global using global::Xunit;
