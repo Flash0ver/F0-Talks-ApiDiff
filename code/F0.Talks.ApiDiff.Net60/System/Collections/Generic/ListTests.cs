@@ -1,3 +1,5 @@
+//https://github.com/dotnet/runtime/issues/44801
+
 namespace F0.System.Collections.Generic;
 
 public class ListTests
@@ -9,8 +11,8 @@ public class ListTests
 
 		collection.Capacity.Should().Be(16);
 
-		collection.EnsureCapacity(32);
-		collection.EnsureCapacity(16);
+		collection.EnsureCapacity(32).Should().Be(32);
+		collection.EnsureCapacity(16).Should().Be(32);
 
 		collection.Capacity.Should().Be(32);
 
@@ -18,4 +20,7 @@ public class ListTests
 
 		collection.Capacity.Should().Be(0);
 	}
+
+	//Stack<T>
+	//Queue<T>
 }

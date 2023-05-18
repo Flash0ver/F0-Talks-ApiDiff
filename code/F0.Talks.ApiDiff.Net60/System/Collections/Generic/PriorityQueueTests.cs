@@ -9,7 +9,7 @@ public class PriorityQueueTests
 	public void PriorityQueue()
 	{
 		PriorityQueue<string, int> queue = new(Comparer<int>.Default);
-		queue.EnsureCapacity(2);
+		queue.EnsureCapacity(2).Should().Be(4);
 
 		queue.Enqueue("1", 1);
 		queue.Enqueue("2", 1);

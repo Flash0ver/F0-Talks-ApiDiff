@@ -1,3 +1,9 @@
+//https://github.com/dotnet/runtime/issues/27183
+//https://github.com/dotnet/runtime/issues/43702
+//https://github.com/dotnet/runtime/issues/27449
+//https://github.com/dotnet/runtime/issues/27687
+//https://github.com/dotnet/runtime/issues/20064
+
 namespace F0.System.Linq;
 
 public class EnumerableTests
@@ -33,12 +39,13 @@ public class EnumerableTests
 		distinct.Should().Equal(new Data("1", 1), new Data("3", 2));
 	}
 
+	//overload: IEqualityComparer<TKey>? comparer
 	//ExceptBy
 	//IntersectBy
-	//UnionBy	
+	//UnionBy
 
 	[Fact]
-	public void ElementAt()
+	public void ElementAt_Index()
 	{
 		IEnumerable<int> collection = Enumerable.Range(0, 10);
 
@@ -48,7 +55,7 @@ public class EnumerableTests
 	}
 
 	[Fact]
-	public void ElementAtOrDefault()
+	public void ElementAtOrDefault_Index()
 	{
 		IEnumerable<int> collection = Enumerable.Range(0, 10);
 
@@ -71,7 +78,7 @@ public class EnumerableTests
 	//SingleOrDefault
 
 	[Fact]
-	public void Max()
+	public void Max_IComparer1()
 	{
 		IEnumerable<int> collection = Enumerable.Range(0, 10);
 
@@ -93,7 +100,7 @@ public class EnumerableTests
 			new Data("4", 2),
 		};
 
-		Data? max = collection.MaxBy(item => item.Number);
+		Data? max = collection.MaxBy(item => item.Number, null);
 
 		max.Should().Be(new Data("3", 2));
 	}
@@ -101,7 +108,7 @@ public class EnumerableTests
 	//MinBy
 
 	[Fact]
-	public void Take()
+	public void Take_Range()
 	{
 		IEnumerable<int> collection = Enumerable.Range(0, 10);
 

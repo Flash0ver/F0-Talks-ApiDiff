@@ -8,7 +8,7 @@ namespace F0.System.Threading.Tasks;
 public class TaskTests
 {
 	[Fact]
-	public async void WaitAsync_Timeout()
+	public async Task WaitAsync_Timeout()
 	{
 		TaskCompletionSource<int> completion = new();
 
@@ -20,7 +20,7 @@ public class TaskTests
 	}
 
 	[Fact]
-	public async void WaitAsync_Cancellation()
+	public async Task WaitAsync_Cancellation()
 	{
 		TaskCompletionSource completion = new();
 

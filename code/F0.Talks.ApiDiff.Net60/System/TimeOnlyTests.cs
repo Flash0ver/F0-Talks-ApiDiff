@@ -19,7 +19,7 @@ public class TimeOnlyTests
 		time.Millisecond.Should().Be(0);
 
 		TimeOnly.MinValue.Should().Be(new TimeOnly(00, 00, 00, 000));
-		//TimeOnly.MaxValue.Should().Be(new TimeOnly(23, 59, 59, 999));
+		TimeOnly.MaxValue.Should().Be(new TimeOnly(863_999_999_999L));
 
 		time
 			.AddHours(2)
