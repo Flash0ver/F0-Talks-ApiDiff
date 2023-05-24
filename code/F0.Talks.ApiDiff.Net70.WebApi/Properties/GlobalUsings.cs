@@ -1,0 +1,17 @@
+global using System.Buffers;
+global using System.Data;
+global using System.Data.Common;
+global using System.Diagnostics;
+global using System.Formats.Tar;
+global using System.Globalization;
+global using System.Net;
+global using System.Net.Http.Headers;
+global using System.Net.Quic;
+global using System.Net.WebSockets;
+global using System.Text;
+global using Microsoft.AspNetCore.Http.HttpResults;
+global using Microsoft.Data.Sqlite;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.ChangeTracking;
+global using Microsoft.Extensions.FileProviders;
+global using Microsoft.Extensions.Options;

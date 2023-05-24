@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Spectre.Console" Version="0.43.0" />
-    <PackageReference Include="Spectre.Console.Analyzer" Version="0.43.0" />
+    <PackageReference Include="Statiq.App" Version="1.0.0-beta.66" />
+    <PackageReference Include="Statiq.Markdown" Version="1.0.0-beta.66" />
   </ItemGroup>
 
 </Project>

@@ -1,43 +1,85 @@
-AnsiConsole.WriteLine();
+return await Bootstrapper
+	.Factory
+	.CreateDefault(args)
+	.BuildPipeline("Render Presentation", static builder => builder
+		.WithInputReadFiles("*.md")
+		.WithProcessModules(new LinkModule(), new RenderMarkdown().UseExtensions())
+		.WithPostProcessModules(new SlideModule())
+		.WithOutputWriteFiles(".html"))
+	.BuildPipeline("Copy CSS", static builder => builder
+		.WithInputReadFiles("*.css")
+		.WithOutputWriteFiles(".css"))
+	.RunAsync();
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]Hello, World![/]");
-AnsiConsole.WriteLine();
+file sealed class LinkModule : ParallelModule
+{
+	private readonly Regex regex;
 
-AnsiConsole.MarkupLine("[grey]Welcome to my talk on the new and improved APIs of [mediumpurple3_1].NET[/].[/]");
-AnsiConsole.WriteLine();
-AnsiConsole.WriteLine();
+	public LinkModule()
+	{
+		regex = new Regex(@"(\[.+]\(\.\/[^/]+\.)(md)(\))", RegexOptions.Compiled);
+	}
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]Stefan Pölz[/]");
-AnsiConsole.MarkupLine("[grey]Clean C# Coder[/]");
-AnsiConsole.MarkupLine("[grey]Test-driven .NET developer[/]");
-AnsiConsole.WriteLine();
+	protected override async Task<IEnumerable<IDocument>> ExecuteInputAsync(IDocument input, IExecutionContext context)
+	{
+		MemoryStream stream = new();
+		StreamWriter writer = new(stream);
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]https://twitter.com/0x_F0 | @0x_F0[/]");
-AnsiConsole.WriteLine();
+		await using (Stream content = input.ContentProvider.GetStream())
+		{
+			using (StreamReader reader = new(content))
+			{
+				while (await reader.ReadLineAsync() is { } line)
+				{
+					line = regex.Replace(line, "$1html$3", 1);
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]https://github.com/Flash0ver[/]");
-AnsiConsole.WriteLine();
+					await writer.WriteLineAsync(line);
+				}
+			}
+		}
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]https://www.twitch.tv/flashoware[/]");
-AnsiConsole.WriteLine();
+		await writer.FlushAsync();
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]http://FlashOWare.NET[/]");
-AnsiConsole.WriteLine();
+		IContentProvider provider = context.GetContentProvider(stream, MediaTypes.Html);
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]https://sessionize.com/FlashOver[/]");
-AnsiConsole.WriteLine();
+		IEnumerable<IDocument> output = input
+			.Clone(input.Source, input.Destination, context, provider)
+			.Yield();
 
-AnsiConsole.MarkupLine("[grey]---[/]");
-AnsiConsole.WriteLine();
+		return output;
+	}
+}
 
-AnsiConsole.MarkupLine("[mediumpurple3_1].NET 6.0[/] [grey]Api-Diff[/]");
-AnsiConsole.WriteLine();
+file sealed class SlideModule : ParallelModule
+{
+	protected override async Task<IEnumerable<IDocument>> ExecuteInputAsync(IDocument input, IExecutionContext context)
+	{
+		MemoryStream stream = new();
+		StreamWriter writer = new(stream);
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]https://github.com/Flash0ver/F0-Talks-ApiDiff[/]");
-AnsiConsole.WriteLine();
+		await writer.WriteLineAsync("<!DOCTYPE html>");
+		await writer.WriteLineAsync("<html>");
+		await writer.WriteLineAsync("<head>");
+		await writer.WriteLineAsync(@"<link rel=""stylesheet"" href=""styles.css"">");
+		await writer.WriteLineAsync("</head>");
+		await writer.WriteLineAsync("<body>");
+		await writer.FlushAsync();
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]https://apireview.net/[/]");
-AnsiConsole.WriteLine();
+		await using (Stream content = input.ContentProvider.GetStream())
+		{
+			await content.CopyToAsync(stream);
+		}
 
-AnsiConsole.MarkupLine("[mediumpurple3_1]https://github.com/dotnet/core/tree/main/release-notes/6.0/[/]");
-AnsiConsole.WriteLine();
+		await writer.WriteLineAsync("</body>");
+		await writer.WriteLineAsync("</html> ");
+		await writer.FlushAsync();
+
+		IContentProvider provider = context.GetContentProvider(stream, MediaTypes.Html);
+
+		IEnumerable<IDocument> output = input
+			.Clone(input.Source, input.Destination, context, provider)
+			.Yield();
+
+		return output;
+	}
+}

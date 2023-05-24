@@ -1,1 +1,2 @@
-global using Spectre.Console;
+global using System.Text.RegularExpressions;
+global using Statiq.Markdown;

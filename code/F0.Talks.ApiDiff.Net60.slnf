@@ -1,0 +1,8 @@
+{
+  "solution": {
+    "path": "F0.Talks.ApiDiff.sln",
+    "projects": [
+      "F0.Talks.ApiDiff.Net60\\F0.Talks.ApiDiff.Net60.csproj"
+    ]
+  }
+}

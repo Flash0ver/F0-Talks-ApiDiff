@@ -1,0 +1,16 @@
+@page "/JavaScriptInterop"
+
+<PageTitle>JavaScriptInterop</PageTitle>
+
+<h3>JavaScriptInterop</h3>
+
+<input @bind="_input" />
+<button @onclick="OnShow">Show</button>
+<button @onclick="OnWrite">Write</button>
+<button @onclick="OnRead">Prompt</button>
+<p>@Result</p>
+
+<button @onclick="OnCallback">Callback</button>
+<p>
+    <span id="result">not called yet</span>
+</p>

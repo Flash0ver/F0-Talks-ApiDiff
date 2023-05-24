@@ -1,0 +1,12 @@
+{
+  "solution": {
+    "path": "F0.Talks.ApiDiff.sln",
+    "projects": [
+      "F0.Talks.ApiDiff.Net70.Benchmarks\\F0.Talks.ApiDiff.Net70.Benchmarks.csproj",
+      "F0.Talks.ApiDiff.Net70.BlazorApp\\F0.Talks.ApiDiff.Net70.BlazorApp.csproj",
+      "F0.Talks.ApiDiff.Net70.ConsoleApp\\F0.Talks.ApiDiff.Net70.ConsoleApp.csproj",
+      "F0.Talks.ApiDiff.Net70.Tests\\F0.Talks.ApiDiff.Net70.Tests.csproj",
+      "F0.Talks.ApiDiff.Net70.WebApi\\F0.Talks.ApiDiff.Net70.WebApi.csproj"
+    ]
+  }
+}
