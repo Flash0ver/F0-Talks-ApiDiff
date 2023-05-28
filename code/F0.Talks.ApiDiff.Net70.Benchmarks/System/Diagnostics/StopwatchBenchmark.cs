@@ -1,12 +1,10 @@
-using System.Diagnostics;
-
 namespace F0.System.Diagnostics;
 
 [ShortRunJob]
 [MemoryDiagnoser]
 public class StopwatchBenchmark
 {
-	[Benchmark]
+	[Benchmark(Baseline = true)]
 	public TimeSpan StartNew()
 	{
 		var stopwatch = Stopwatch.StartNew();

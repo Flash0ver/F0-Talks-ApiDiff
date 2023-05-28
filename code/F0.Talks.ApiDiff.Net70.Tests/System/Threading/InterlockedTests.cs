@@ -3,7 +3,7 @@ namespace F0.System.Threading;
 public class InterlockedTests
 {
 	[Fact]
-	public void asd()
+	public void Exchange_UIntPtr()
 	{
 		nuint original;
 		UIntPtr location1 = 1;
@@ -18,7 +18,7 @@ public class InterlockedTests
 	}
 
 	[Fact]
-	public void CompareExchange()
+	public void CompareExchange_UIntPtr()
 	{
 		nuint original;
 		UIntPtr location1 = 1;

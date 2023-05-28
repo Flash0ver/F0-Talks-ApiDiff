@@ -2,7 +2,7 @@ namespace F0.System.Collections.Generic;
 
 public class SortedListTests
 {
-	SortedList<char, string> _list;
+	private readonly SortedList<char, string> _list;
 
 	public SortedListTests()
 	{

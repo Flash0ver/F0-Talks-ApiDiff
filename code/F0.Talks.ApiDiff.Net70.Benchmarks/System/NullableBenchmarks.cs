@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace F0.System;
 
 [ShortRunJob]
@@ -9,7 +7,7 @@ public class NullableBenchmarks
 
 	private readonly MyStruct? _value = new(2);
 
-	[Benchmark]
+	[Benchmark(Baseline = true)]
 	public int Value()
 	{
 		Debug.Assert(_value.HasValue);

@@ -120,7 +120,7 @@ internal static class IORoute
 		stream.Seek(0, SeekOrigin.Begin);
 		await stream.ReadExactlyAsync(exactlyBuffer, cancellationToken);
 
-		_ = Encoding.Unicode.Preamble;
+		var preambleCount = Encoding.Unicode.GetCharCount(Encoding.Unicode.Preamble.ToArray());
 		string atLeastText = Encoding.Unicode.GetString(atLeastBuffer.Span.Slice(0, totalNumberOfBytesRead));
 		string exactlyText = Encoding.Unicode.GetString(exactlyBuffer.Span);
 
@@ -129,7 +129,7 @@ internal static class IORoute
 		//ReadLinesAsync
 		IAsyncEnumerable<string> lines = File.ReadLinesAsync(fileInfo.PhysicalPath, Encoding.Unicode, cancellationToken);
 
-		return TypedResults.Ok(new { totalNumberOfBytesRead, atLeastText, exactlyText, lines });
+		return TypedResults.Ok(new { totalNumberOfBytesRead, atLeastText, exactlyText, preambleCount, lines });
 	}
 
 	private static async Task<IStatusCodeHttpResult> Read2Async(IWebHostEnvironment env, CancellationToken cancellationToken)

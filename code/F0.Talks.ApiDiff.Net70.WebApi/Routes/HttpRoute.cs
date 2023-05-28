@@ -45,8 +45,8 @@ internal static class HttpRoute
 		await Task.Yield();
 
 		string response = $"""
-			{nameof(QuicListener)} {nameof(QuicListener.IsSupported)} {QuicListener.IsSupported}
-			{nameof(QuicConnection)} {nameof(QuicConnection.IsSupported)} {QuicConnection.IsSupported}
+			{nameof(QuicListener)} {nameof(QuicListener.IsSupported)}: {QuicListener.IsSupported}
+			{nameof(QuicConnection)} {nameof(QuicConnection.IsSupported)}: {QuicConnection.IsSupported}
 			{QuicStream.Null}
 			""";
 
