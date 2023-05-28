@@ -4,7 +4,7 @@ My talks on the new and improved APIs of .NET.
 ## .NET 7 API diff
 
 ### 2023-05-24: NDC Oslo 2023
-_Venue_: Oslo Spektrum
+* _Venue_: Oslo Spektrum
 * [Conference site](https://ndcoslo.com/)
 
 ## .NET 6 API diff
